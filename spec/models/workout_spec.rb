@@ -1,5 +1,14 @@
 require 'rails_helper'
 
-# RSpec.describe Workout, type: :model do
-#   pending "add some examples to (or delete) #{__FILE__}"
-# end
+RSpec.describe Workout, type: :model do
+  describe "Validations" do
+    it {is_expected.to validate_presence_of(:name)}
+    it {is_expected.to validate_presence_of(:weekday)}
+    it {is_expected.to validate_presence_of(:status)}
+  end
+
+  describe "Relationships" do
+    it {should have_many(:workout_exercises)}
+    it {should have_many(:exercises).through(:workout_exercises)}
+  end
+end
