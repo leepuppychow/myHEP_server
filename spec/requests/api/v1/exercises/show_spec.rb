@@ -14,4 +14,12 @@ describe "Exercises API" do
     expect(exercise["created_at"]).to be_a(String)
     expect(exercise["updated_at"]).to be_a(String)
   end
+
+  it "will return 404 for non-existing ID" do
+    create_list(:exercise, 2)
+
+    get '/api/v1/exercises/wheee'
+
+    expect(response.status).to eq 404
+  end
 end
