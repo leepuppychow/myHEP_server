@@ -32,4 +32,17 @@ describe "Exercises API" do
     expect(response.status).to eq 404
   end
 
+  it "Cannot update existing exercise with invalid params" do
+    create_list(:exercise, 2)
+    params = {exercise:
+                {
+                  blah: "squats",
+                  blerg: "sit in chair"
+                }
+              }
+    patch "/api/v1/exercises/1", params: params
+
+    expect(response.status).to eq 404
+  end
+
 end

@@ -25,11 +25,11 @@ class Api::V1::ExercisesController < ApplicationController
   end
 
   def update
-    if @exercise
+    if @exercise && !exercise_params.empty?
       @exercise.update(exercise_params)
       render json: @exercise, status: 204
     else
-      render json: {:message => "Cannot find exercise with id: #{params[:id]}"},
+      render json: {:message => "Error updating exercise with id: #{params[:id]}"},
                     status: 404
     end
   end
