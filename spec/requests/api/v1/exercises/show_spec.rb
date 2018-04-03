@@ -19,7 +19,9 @@ describe "Exercises API" do
     create_list(:exercise, 2)
 
     get '/api/v1/exercises/wheee'
+    error = JSON.parse(response.body)
 
     expect(response.status).to eq 404
+    expect(error["error"]).to eq "Cannot find exercise with id: wheee"
   end
 end

@@ -30,6 +30,9 @@ describe "Exercises API" do
               }
     post "/api/v1/exercises", params: params
 
+    error = JSON.parse(response.body)
+
     expect(response.status).to eq 400
+    expect(error["error"]).to eq "Unable to create exercise"
   end
 end

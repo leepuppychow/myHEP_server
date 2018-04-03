@@ -10,8 +10,7 @@ class Api::V1::ExercisesController < ApplicationController
     if @exercise
       render json: @exercise, status: 200
     else
-      render json: {:message => "Cannot find exercise with id: #{params[:id]}"},
-                    status: 404
+      render json: {:error => error_messages(:show)}, status: 404
     end
   end
 
@@ -20,7 +19,7 @@ class Api::V1::ExercisesController < ApplicationController
     if exercise.save
       render json: exercise, status: 201
     else
-      render json: {:message => "Unable to create exercise"}, status: 400
+      render json: {:error => error_messages(:create)}, status: 400
     end
   end
 
@@ -29,8 +28,7 @@ class Api::V1::ExercisesController < ApplicationController
       @exercise.update(exercise_params)
       render json: @exercise, status: 204
     else
-      render json: {:message => "Error updating exercise with id: #{params[:id]}"},
-                    status: 404
+      render json: {:error => error_messages(:update)}, status: 404
     end
   end
 
@@ -39,8 +37,7 @@ class Api::V1::ExercisesController < ApplicationController
       @exercise.destroy
       render json: {}, status: 204
     else
-      render json: {:message => "Unable to delete exercise with id: #{params[:id]}"},
-                    status: 404
+      render json: {:error => error_messages(:destroy)}, status: 404
     end
   end
 
@@ -52,6 +49,16 @@ class Api::V1::ExercisesController < ApplicationController
 
     def exercise_params
       params.require(:exercise).permit(:name, :image, :description)
+    end
+
+    def error_messages(action)
+      errors = {
+        :show => "Cannot find exercise with id: #{params[:id]}",
+        :create => "Unable to create exercise",
+        :update => "Error updating exercise with id: #{params[:id]}",
+        :destroy => "Unable to delete exercise with id: #{params[:id]}",
+      }
+      errors[action]
     end
 
 end

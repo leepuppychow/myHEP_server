@@ -10,7 +10,7 @@ describe "Exercises API" do
     expect(response.body).to eq("")
 
     exercise = Exercise.find_by(id: 1)
-    expect(exercise).to be_nil
+    expect(exercise).to eq nil
   end
 
   it "Cannot delete non-existing exercise" do
@@ -18,6 +18,9 @@ describe "Exercises API" do
 
     delete '/api/v1/exercises/100'
 
+    error = JSON.parse(response.body)
+
     expect(response.status).to eq 404
+    expect(error["error"]).to eq "Unable to delete exercise with id: 100"
   end
 end

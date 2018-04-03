@@ -27,9 +27,11 @@ describe "Exercises API" do
                   description: "sit in chair"
                 }
               }
-    patch "/api/v1/exercises/5", params: params
+    patch "/api/v1/exercises/100", params: params
+    error = JSON.parse(response.body)
 
     expect(response.status).to eq 404
+    expect(error["error"]).to eq "Error updating exercise with id: 100"
   end
 
   it "Cannot update existing exercise with invalid params" do
@@ -41,8 +43,10 @@ describe "Exercises API" do
                 }
               }
     patch "/api/v1/exercises/1", params: params
+    error = JSON.parse(response.body)
 
     expect(response.status).to eq 404
+    expect(error["error"]).to eq "Error updating exercise with id: 1"
   end
 
 end
