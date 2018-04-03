@@ -8,7 +8,6 @@ describe "Exercises API" do
 
     exercises = JSON.parse(response.body)
 
-    expect(response).to be_successful
     expect(exercises.count).to eq(3)
     expect(exercises.first["name"]).to be_a(String)
     expect(exercises.first["image"]).to be_a(String)
