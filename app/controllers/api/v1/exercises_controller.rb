@@ -15,15 +15,33 @@ class Api::V1::ExercisesController < ApplicationController
     end
   end
 
+  def create
+    exercise = Exercise.new(exercise_params)
+    if exercise.save
+      render json: exercise, status: 201
+    else
+      render json: {:message => "Unable to create exercise"}, status: 400
+    end
+  end
+
   def destroy
-    @exercise.destroy
-    render json: {}, status: 204
+    if @exercise
+      @exercise.destroy
+      render json: {}, status: 204
+    else
+      render json: {:message => "Unable to delete exercise with id: #{params[:id]}"},
+                    status: 404
+    end
   end
 
   private
 
     def find_exercise
       @exercise ||= Exercise.find_by(id: params[:id])
+    end
+
+    def exercise_params
+      params.require(:exercise).permit(:name, :image, :description)
     end
 
 end
