@@ -5,8 +5,6 @@ describe Exercise do
     it {is_expected.to validate_presence_of(:name)}
     it {is_expected.to validate_presence_of(:image)}
     it {is_expected.to validate_presence_of(:description)}
-    it {is_expected.to validate_presence_of(:created_at)}
-    it {is_expected.to validate_presence_of(:updated_at)}
   end
 
   describe "Relationships" do

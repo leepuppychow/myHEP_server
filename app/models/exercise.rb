@@ -1,9 +1,5 @@
 class Exercise < ApplicationRecord
-  validates :name,
-            :image,
-            :description,
-            :created_at,
-            :updated_at, presence: true
+  validates :name, :image, :description, presence: true
   has_many :exercise_categories
   has_many :categories, through: :exercise_categories
   has_many :workout_exercises
