@@ -21,7 +21,15 @@ class Api::V1::WorkoutsController < ApplicationController
     else
       render json: {:error => error_messages(:create)}, status: 400
     end
+  end
 
+  def update
+    if @workout && !workout_params.empty?
+      @workout.update(workout_params)
+      render json: @workout, status: 204
+    else
+      render json: {:error => error_messages(:update)}, status: 404
+    end
   end
 
   private
