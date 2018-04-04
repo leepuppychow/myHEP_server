@@ -5,12 +5,17 @@ class WorkoutSerializer < ActiveModel::Serializer
              :therapist,
              :created_at,
              :updated_at,
-             :weekdays
-             
-  has_many :workout_exercises
+             :weekdays,
+             :workout_exercises
 
   def weekdays
     object.weekdays.pluck(:name)
+  end
+
+  def workout_exercises
+    object.workout_exercises
+      .select("workout_exercises.*, exercises.*")
+      .joins(:exercise)
   end
 
 

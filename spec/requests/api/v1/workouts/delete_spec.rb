@@ -7,7 +7,7 @@ describe "Workouts" do
     delete '/api/v1/workouts/1'
 
     expect(response.status).to eq 204
-    expect(response.body).to eq("")
+    expect(response.body).to eq ""
 
     workout = Workout.find_by(id: 1)
     expect(workout).to eq nil
