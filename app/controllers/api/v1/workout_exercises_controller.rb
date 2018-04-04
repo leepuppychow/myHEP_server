@@ -1,14 +1,29 @@
 class Api::V1::WorkoutExercisesController < ApplicationController
-  before_action :find_workout, except: [:index, :create]
-  before_action :find_exercise, except: [:index, :create]
+  before_action :find_workout
+  before_action :find_exercise
 
   def show
     if @workout && @exercise
-      # workout_exercise = WorkoutExercise.find_by(workout_id: @workout,
-      #                                           exercise_id: @exercise)
       render json: workout_exercise, status: 200
     else
       render json: {:error => error_messages(:show)}, status: 404
+    end
+  end
+
+  def create
+    if @workout
+      exercise = @workout.workout_exercises.new(workout_exercise_params)
+      save_workout_exercise(exercise)
+    else
+      render json: {:error => error_messages(:create)}, status: 400
+    end
+  end
+
+  def save_workout_exercise(exercise)
+    if exercise.save
+      render json: exercise, status: 201
+    else
+      render json: {:error => error_messages(:missing_params)}, status: 400
     end
   end
 
@@ -22,6 +37,11 @@ class Api::V1::WorkoutExercisesController < ApplicationController
   end
 
   private
+
+    def workout_exercise_params
+      params.require(:workout_exercise).permit(:sets, :reps,
+                                              :status, :exercise_id)
+    end
 
     def find_workout
       @workout ||= Workout.find_by(id: params[:workout_id])
@@ -40,6 +60,7 @@ class Api::V1::WorkoutExercisesController < ApplicationController
       errors = {
         :show => "Cannot find workout_exercise",
         :create => "Unable to create workout_exercise",
+        :missing_params => "Missing parameters",
         :update => "Error updating workout_exercise",
         :destroy => "Unable to delete workout_exercise",
       }
