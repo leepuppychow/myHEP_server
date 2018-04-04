@@ -5,7 +5,6 @@ describe "Workouts" do
     params = {workout:
                 {
                   name: "Hard day",
-                  weekday: "Monday",
                   status: "done",
                   therapist: "Lee",
                 }
@@ -16,7 +15,6 @@ describe "Workouts" do
 
     expect(response.status).to eq 201
     expect(workout["name"]).to eq "Hard day"
-    expect(workout["weekday"]).to eq "Monday"
     expect(workout["status"]).to eq "done"
     expect(workout["therapist"]).to eq "Lee"
   end

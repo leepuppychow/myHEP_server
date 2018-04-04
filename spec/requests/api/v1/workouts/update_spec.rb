@@ -6,7 +6,6 @@ describe "Workouts" do
     params = {workout:
                 {
                   name: "Hard day",
-                  weekday: "Monday",
                   status: "done",
                   therapist: "Lee",
                 }
@@ -16,7 +15,6 @@ describe "Workouts" do
     workout = Workout.find(1)
     expect(response.status).to eq 204
     expect(workout["name"]).to eq "Hard day"
-    expect(workout["weekday"]).to eq "Monday"
     expect(workout["status"]).to eq "done"
     expect(workout["therapist"]).to eq "Lee"
   end
@@ -26,7 +24,6 @@ describe "Workouts" do
     params = {workout:
                 {
                   name: "Hard day",
-                  weekday: "Monday",
                 }
               }
     patch "/api/v1/workouts/100", params: params
