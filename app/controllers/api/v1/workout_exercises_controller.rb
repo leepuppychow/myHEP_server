@@ -27,6 +27,15 @@ class Api::V1::WorkoutExercisesController < ApplicationController
     end
   end
 
+  def update
+    if @workout && @exercise && !workout_exercise_params.empty?
+      workout_exercise.update(workout_exercise_params)
+      render json: workout_exercise, status: 204
+    else
+      render json: {:error => error_messages(:update)}, status: 404
+    end
+  end
+
   def destroy
     if @workout && @exercise
       workout_exercise.destroy
