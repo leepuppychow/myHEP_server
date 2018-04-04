@@ -11,7 +11,6 @@ describe "Workouts" do
     expect(response.status).to eq 200
     expect(workouts.count).to eq(3)
     expect(workouts.first["name"]).to be_a(String)
-    expect(workouts.first["weekday"]).to be_a(String)
     expect(workouts.first["status"]).to be_a(String)
     expect(workouts.first["therapist"]).to be_a(String)
     expect(workouts.first["created_at"]).to be_a(String)
