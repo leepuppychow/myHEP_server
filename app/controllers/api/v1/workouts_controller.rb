@@ -12,6 +12,15 @@ class Api::V1::WorkoutsController < ApplicationController
     else
       render json: {:error => error_messages(:show)}, status: 404
     end
+  end
+
+  def create
+    workout = Workout.new(workout_params)
+    if workout.save
+      render json: workout, status: 201
+    else
+      render json: {:error => error_messages(:create)}, status: 400
+    end
 
   end
 
