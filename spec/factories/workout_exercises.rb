@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :workout_exercise do
     sets 1
-    reps 1
-    status "MyString"
+    reps 2
+    status 0
   end
 end
