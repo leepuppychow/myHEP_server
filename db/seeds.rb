@@ -7,7 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Exercise.delete_all
+Workout.delete_all
 
 Exercise.create(name: "Squat", image: "test", description: "Pretend you are sitting in a chair")
 Exercise.create(name: "Lunge", image: "test", description: "Lunge forward")
 Exercise.create(name: "Plank", image: "test", description: "Hold, keeping body inline")
+
+Workout.create(name: "Easy Day", weekday: "Monday", status: 0, therapist: "Lee")
+Workout.create(name: "Hard Day", weekday: "Tuesday", status: 0, therapist: "Lee")
+Workout.create(name: "Medium Day", weekday: "Friday", status: 0, therapist: "Lee")
+
+puts "Seeding complete"

@@ -3,6 +3,7 @@ class Api::V1::ExercisesController < ApplicationController
 
   def index
     render json: Exercise.all, status: 200
+    # render json: current_user.exercises, status: 200
   end
 
   def show
