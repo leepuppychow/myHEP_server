@@ -32,6 +32,15 @@ class Api::V1::WorkoutsController < ApplicationController
     end
   end
 
+  def destroy
+    if @workout
+      @workout.destroy
+      render json: {}, status: 204
+    else
+      render json: {:error => error_messages(:destroy)}, status: 404
+    end
+  end
+
   private
 
     def find_workout
