@@ -11,7 +11,7 @@ describe "Workout_Exercises" do
     we2 = create(:workout_exercise, workout: w, exercise: ex2)
     w.weekdays << [day1, day2]
 
-    get "/api/v1/workout_exercises/#{we1.id}"
+    get "/api/v1/workouts/#{w.id}/exercises/#{ex1.id}"
 
     workout_exercise = JSON.parse(response.body)
 
