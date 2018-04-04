@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         get "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#show"
         post "/workouts/:workout_id/exercises", to: "workout_exercises#create"
         put "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#update"
+        patch "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#update"
         delete "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#destroy"
       end
     end
