@@ -8,6 +8,7 @@ describe "Workouts" do
 
     workouts = JSON.parse(response.body)
 
+    expect(response.status).to eq 200
     expect(workouts.count).to eq(3)
     expect(workouts.first["name"]).to be_a(String)
     expect(workouts.first["weekday"]).to be_a(String)
