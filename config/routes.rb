@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :exercises, except: [:new, :edit]
       resources :workouts, except: [:new, :edit]
+      resources :workout_exercises, except: [:new, :edit, :index]
     end
   end
 end
