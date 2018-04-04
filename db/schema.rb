@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403172921) do
+ActiveRecord::Schema.define(version: 20180404052916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180403172921) do
   create_table "workout_exercises", force: :cascade do |t|
     t.integer "sets"
     t.integer "reps"
-    t.string "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "exercise_id"
@@ -53,11 +53,10 @@ ActiveRecord::Schema.define(version: 20180403172921) do
   create_table "workouts", force: :cascade do |t|
     t.string "name"
     t.string "weekday"
-    t.string "therapist_first_name"
-    t.string "therapist_last_name"
-    t.string "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "therapist"
   end
 
   add_foreign_key "exercise_categories", "categories"

@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :workout do
-    name "MyString"
-    weekday "MyString"
-    therapist_first_name "MyString"
-    therapist_last_name "MyString"
-    status "MyString"
+    sequence(:name) {|n| "Workout#{n}"}
+    sequence(:weekday) {|n| "Monday#{n}"}
+    sequence(:therapist) {|n| "Therapist#{n}"}
+    status 0
   end
 end

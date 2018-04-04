@@ -2,8 +2,7 @@ class Api::V1::ExercisesController < ApplicationController
   before_action :find_exercise, except: [:index, :create]
 
   def index
-    exercises = Exercise.all
-    render json: exercises, status: 200
+    render json: Exercise.all, status: 200
   end
 
   def show
