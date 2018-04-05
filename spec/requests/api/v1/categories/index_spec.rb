@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe "Category endpoints" do
   it "can get index of all categories" do
+    current_user = create(:user)
     create_list(:category, 3)
 
-    get '/api/v1/categories'
+    get '/api/v1/categories', headers: auth_headers(current_user)
 
     categories = JSON.parse(response.body)
 
