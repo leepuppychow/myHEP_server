@@ -1,4 +1,5 @@
 class Api::V1::ExercisesController < ApplicationController
+  # before_action :authenticate_user
   before_action :find_exercise, except: [:index, :create]
 
   def index
