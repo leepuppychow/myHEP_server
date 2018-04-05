@@ -1,4 +1,5 @@
 class Api::V1::WorkoutExercisesController < ApplicationController
+  before_action :authenticate_user
   before_action :find_workout
   before_action :find_exercise
 
