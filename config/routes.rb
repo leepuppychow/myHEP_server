@@ -3,12 +3,14 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :categories, only: [:index, :show]
       resources :exercises, except: [:new, :edit]
       resources :workouts, except: [:new, :edit]
       scope as: :workout_exercise do
         get "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#show"
         post "/workouts/:workout_id/exercises", to: "workout_exercises#create"
         put "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#update"
+        patch "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#update"
         delete "/workouts/:workout_id/exercises/:exercise_id", to: "workout_exercises#destroy"
       end
     end
