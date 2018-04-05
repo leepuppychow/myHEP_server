@@ -16,6 +16,8 @@ ActiveRecord::Base.connection.tables.each do |table|
   ActiveRecord::Base.connection.reset_pk_sequence!(table)
 end
 
+admin = User.new(email: "admin@gmail.com", )
+
 strength = Category.create(name: "Strength")
 mobility = Category.create(name: "Mobility")
 aerobic = Category.create(name: "Aerobic Training")
