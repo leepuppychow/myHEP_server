@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe "Category endpoints" do
   it "can get index of all categories" do
+    current_user = create(:user)
     create_list(:category, 3)
 
-    get '/api/v1/categories'
+    get '/api/v1/categories', headers: auth_headers(current_user)
 
     categories = JSON.parse(response.body)
 
@@ -12,5 +13,11 @@ describe "Category endpoints" do
     expect(categories.count).to eq 3
     expect(categories.first).to be_a Hash
     expect(categories.first["name"]).to be_a String
+  end
+
+  it "cannot get index without Authorization token" do
+    get '/api/v1/categories'
+
+    expect(response.status).to eq 401
   end
 end

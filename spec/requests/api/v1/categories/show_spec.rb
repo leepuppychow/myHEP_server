@@ -2,11 +2,13 @@ require 'rails_helper'
 
 describe "Category endpoints" do
   it "can show individual category with its exercises" do
+    current_user = create(:user)
     category = create(:category)
     ex1, ex2, ex3 = create_list(:exercise, 3)
     category.exercises << [ex1, ex2, ex3]
 
-    get "/api/v1/categories/#{category.id}"
+    get "/api/v1/categories/#{category.id}", headers: auth_headers(current_user)
+
 
     category = JSON.parse(response.body)
 
@@ -21,11 +23,20 @@ describe "Category endpoints" do
   end
 
   it "cannot find category with incorrect ID" do
-    get "/api/v1/categories/blerg"
+    current_user = create(:user)
+    get "/api/v1/categories/blerg", headers: auth_headers(current_user)
 
     error = JSON.parse(response.body)
 
     expect(response.status).to eq 404
-    expect(error["error"]).to eq "Unable to find category with id: blerg"   
+    expect(error["error"]).to eq "Unable to find category with id: blerg"
   end
+
+  it "cannot get category without Authorization token" do
+    category = create(:category)
+    get "/api/v1/categories/#{category.id}"
+
+    expect(response.status).to eq 401
+  end
+
 end

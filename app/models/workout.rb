@@ -3,6 +3,7 @@ class Workout < ApplicationRecord
   has_many :workout_exercises
   has_many :exercises, through: :workout_exercises
   has_many :weekdays
+  belongs_to :user
 
   enum status: [:done, :partial, :missed]
 end

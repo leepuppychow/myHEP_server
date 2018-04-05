@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe "Exercises API" do
   it "can create new exercise" do
+    current_user = create(:user)
+
     params = {exercise:
                 {
                   name: "squats",
@@ -9,7 +11,7 @@ describe "Exercises API" do
                   description: "sit in chair"
                 }
               }
-    post "/api/v1/exercises", params: params
+    post "/api/v1/exercises", params: params, headers: auth_headers(current_user)
 
     exercise = JSON.parse(response.body)
 
@@ -22,17 +24,33 @@ describe "Exercises API" do
   end
 
   it "Unable to create with missing attributes" do
+    current_user = create(:user)
     params = {exercise:
                 {
                   name: "squats",
                   description: "sit in chair"
                 }
               }
-    post "/api/v1/exercises", params: params
+    post "/api/v1/exercises", params: params, headers: auth_headers(current_user)
 
     error = JSON.parse(response.body)
 
     expect(response.status).to eq 400
     expect(error["error"]).to eq "Unable to create exercise"
   end
+
+  it "cannot access route without Authorization Header" do
+    create_list(:exercise, 2)
+    params = {exercise:
+                {
+                  name: "squats",
+                  image: "default",
+                  description: "sit in chair"
+                }
+              }
+    post "/api/v1/exercises", params: params
+
+    expect(response.status).to eq 401
+  end
+
 end

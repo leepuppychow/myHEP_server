@@ -1,9 +1,12 @@
 class Api::V1::ExercisesController < ApplicationController
+  before_action :authenticate_user
   before_action :find_exercise, except: [:index, :create]
 
+  # Currently, this is scoped to allow an authenticated user to see all exercises
+  # Maybe there is no need to limit this to current_user.exercises
+  
   def index
     render json: Exercise.all, status: 200
-    # render json: current_user.exercises, status: 200
   end
 
   def show

@@ -1,9 +1,9 @@
 class Api::V1::WorkoutsController < ApplicationController
+  before_action :authenticate_user
   before_action :find_workout, except: [:index, :create]
 
   def index
-    render json: Workout.all, status: 200
-    # render json: current_user.workouts, status: 200
+    render json: current_user.workouts, status: 200
   end
 
   def show
@@ -15,8 +15,9 @@ class Api::V1::WorkoutsController < ApplicationController
   end
 
   def create
-    workout = Workout.new(workout_params)
+    workout = current_user.workouts.new(workout_params)
     if workout.save
+      add_weekdays_to(workout)
       render json: workout, status: 201
     else
       render json: {:error => error_messages(:create)}, status: 400
@@ -26,6 +27,7 @@ class Api::V1::WorkoutsController < ApplicationController
   def update
     if @workout && !workout_params.empty?
       @workout.update(workout_params)
+      add_weekdays_to(@workout)
       render json: @workout, status: 204
     else
       render json: {:error => error_messages(:update)}, status: 404
@@ -43,19 +45,30 @@ class Api::V1::WorkoutsController < ApplicationController
 
   private
 
-    def find_workout
-      @workout ||= Workout.find_by(id: params[:id])
+    def workout_params
+      params.require(:workout).permit(:name, :status, :therapist)
     end
 
-    def workout_params
-      params.require(:workout).permit(:name, :weekday, :status, :therapist)
+    def weekday_params
+      params.require(:workout).permit(:weekdays => [])[:weekdays]
+    end
+
+    def find_workout
+      @workout ||= current_user.workouts.find_by(id: params[:id])
+    end
+
+    def add_weekdays_to(workout)
+      if weekday_params
+        workout.weekdays.delete_all
+        weekday_params.each {|id| workout.weekdays << Weekday.find(id)}
+      end
     end
 
     def error_messages(action)
       errors = {
         :show => "Cannot find workout with id: #{params[:id]}",
         :create => "Unable to create workout",
-        :update => "Error updating workout with id: #{params[:id]}",
+        :update => "Error updating workout",
         :destroy => "Unable to delete workout with id: #{params[:id]}",
       }
       errors[action]

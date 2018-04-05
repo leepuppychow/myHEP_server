@@ -10,5 +10,6 @@ RSpec.describe Workout, type: :model do
     it {should have_many(:weekdays)}
     it {should have_many(:workout_exercises)}
     it {should have_many(:exercises).through(:workout_exercises)}
+    it {should belong_to(:user)}
   end
 end
