@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Weekday.destroy_all
 WorkoutExercise.destroy_all
 Exercise.destroy_all
-Weekday.destroy_all
 Workout.destroy_all
 
 ActiveRecord::Base.connection.tables.each do |table|

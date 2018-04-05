@@ -61,8 +61,7 @@ class Api::V1::WorkoutExercisesController < ApplicationController
     end
 
     def workout_exercise
-      WorkoutExercise.find_by(workout_id: @workout,
-                              exercise_id: @exercise)
+      WorkoutExercise.find_by(workout_id: @workout, exercise_id: @exercise)
     end
 
     def error_messages(action)
