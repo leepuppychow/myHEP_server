@@ -27,6 +27,7 @@ class Api::V1::WorkoutsController < ApplicationController
   def update
     if @workout && !workout_params.empty?
       @workout.update(workout_params)
+      add_weekdays_to(@workout)
       render json: @workout, status: 204
     else
       render json: {:error => error_messages(:update)}, status: 404
@@ -58,6 +59,7 @@ class Api::V1::WorkoutsController < ApplicationController
 
     def add_weekdays_to(workout)
       if weekday_params
+        workout.weekdays.delete_all
         weekday_params.each {|id| workout.weekdays << Weekday.find(id)}
       end
     end
@@ -66,7 +68,7 @@ class Api::V1::WorkoutsController < ApplicationController
       errors = {
         :show => "Cannot find workout with id: #{params[:id]}",
         :create => "Unable to create workout",
-        :update => "Error updating workout with id: #{params[:id]}",
+        :update => "Error updating workout",
         :destroy => "Unable to delete workout with id: #{params[:id]}",
       }
       errors[action]
