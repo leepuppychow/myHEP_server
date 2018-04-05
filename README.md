@@ -46,7 +46,7 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
   DELETE '/workouts/:id' --> Delete workout
 ```
 
-* Workout_exercises
+* Workout_exercises (NOTE: there is no index route here, as the workout show endpoint will have all corresponding workout_exercises)
 
 ```
   GET '/workouts/:workout_id/exercises/:exercise_id' --> Shows one workout_exercise
@@ -58,11 +58,11 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
   DELETE '/workouts/:workout_id/exercises/:exercise_id' --> Delete workout_exercise
 ```
 
+## Setup
+
 * Ruby version
   - Ruby: 2.5.0
   - Rails: 5.1.6
-
-* System dependencies
 
 * Configuration and Database Creation
   - git clone repository
@@ -72,3 +72,4 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 
 * How to run the test suite
   - rspec
+  - open coverage/index.html --> for SimpleCov test coverage information
