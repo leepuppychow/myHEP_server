@@ -18,7 +18,8 @@ describe "Workouts" do
                   weekdays: [3,5,7]
                 }
               }
-    put "/api/v1/workouts/#{workout.id}", params: params, headers: auth_headers(current_user)
+    put "/api/v1/workouts/#{workout.id}", params: params,
+      headers: auth_headers(current_user)
 
     workout = Workout.find(workout.id)
 
@@ -60,7 +61,8 @@ describe "Workouts" do
                   blerg: "sit in chair"
                 }
               }
-    put "/api/v1/workouts/#{workout.id}", params: params, headers: auth_headers(current_user)
+    put "/api/v1/workouts/#{workout.id}", params: params,
+      headers: auth_headers(current_user)
 
     error = JSON.parse(response.body)
 
