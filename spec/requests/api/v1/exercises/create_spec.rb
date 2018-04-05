@@ -38,4 +38,19 @@ describe "Exercises API" do
     expect(response.status).to eq 400
     expect(error["error"]).to eq "Unable to create exercise"
   end
+
+  it "cannot access route without Authorization Header" do
+    create_list(:exercise, 2)
+    params = {exercise:
+                {
+                  name: "squats",
+                  image: "default",
+                  description: "sit in chair"
+                }
+              }
+    post "/api/v1/exercises", params: params
+
+    expect(response.status).to eq 401
+  end
+
 end

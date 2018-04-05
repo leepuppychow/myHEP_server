@@ -14,4 +14,10 @@ describe "Category endpoints" do
     expect(categories.first).to be_a Hash
     expect(categories.first["name"]).to be_a String
   end
+
+  it "cannot get index without Authorization token" do
+    get '/api/v1/categories'
+
+    expect(response.status).to eq 401
+  end
 end

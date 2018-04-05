@@ -31,4 +31,12 @@ describe "Category endpoints" do
     expect(response.status).to eq 404
     expect(error["error"]).to eq "Unable to find category with id: blerg"
   end
+
+  it "cannot get category without Authorization token" do
+    category = create(:category)
+    get "/api/v1/categories/#{category.id}"
+
+    expect(response.status).to eq 401
+  end
+
 end

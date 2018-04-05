@@ -16,4 +16,10 @@ describe "Exercises API" do
     expect(exercises.first["created_at"]).to be_a(String)
     expect(exercises.first["updated_at"]).to be_a(String)
   end
+
+  it "cannot get index without Authorization token" do
+    get '/api/v1/exercises'
+
+    expect(response.status).to eq 401
+  end
 end

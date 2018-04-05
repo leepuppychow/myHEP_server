@@ -25,4 +25,12 @@ describe "Exercises API" do
     expect(response.status).to eq 404
     expect(error["error"]).to eq "Unable to delete exercise with id: 100"
   end
+
+  it "cannot access route without Authorization Header" do
+    create_list(:exercise, 2)
+    delete "/api/v1/exercises/1"
+
+    expect(response.status).to eq 401
+  end
+
 end
