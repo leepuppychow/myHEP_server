@@ -12,7 +12,5 @@ class Api::V1::CategoriesController < ApplicationController
       render json: {:error => "Unable to find category with id: #{params[:id]}"},
                     status: 404
     end
-
   end
-
 end
