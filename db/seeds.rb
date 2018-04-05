@@ -6,17 +6,36 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+ExerciseCategory.destroy_all
 Category.destroy_all
 Weekday.destroy_all
 WorkoutExercise.destroy_all
 Exercise.destroy_all
 Workout.destroy_all
+User.destroy_all
 
 ActiveRecord::Base.connection.tables.each do |table|
   ActiveRecord::Base.connection.reset_pk_sequence!(table)
 end
 
-admin = User.new(email: "admin@gmail.com", )
+admin = User.new(email: "admin@gmail.com",
+                password: "dopamine",
+                password_confirmation: "dopamine",
+                admin: true,
+                first_name: "admin",
+                last_name: "admin",
+                username: "admin"
+                )
+admin.save
+
+lee = User.new(email: "lee@gmail.com",
+                password: "password",
+                password_confirmation: "password",
+                first_name: "lee",
+                last_name: "chow",
+                username: "lee"
+                )
+lee.save
 
 strength = Category.create(name: "Strength")
 mobility = Category.create(name: "Mobility")
@@ -50,6 +69,8 @@ workout2 = Workout.create(name: "Hard Day", status: 0, therapist: "Lee")
 workout2.weekdays << [tuesday, thursday]
 workout3 = Workout.create(name: "Medium Day", status: 0, therapist: "Lee")
 workout3.weekdays << [saturday, sunday]
+
+lee.workouts << [workout1, workout2, workout3]
 
 we1 = WorkoutExercise.create(sets: 3, reps: 10, status: 0, workout: workout1, exercise: ex1)
 we2 = WorkoutExercise.create(sets: 2, reps: 8, status: 0, workout: workout1, exercise: ex2)
