@@ -44,7 +44,7 @@ class Api::V1::WorkoutsController < ApplicationController
   private
 
     def find_workout
-      @workout ||= Workout.find_by(id: params[:id])
+      @workout ||= current_user.workouts.find_by(id: params[:id])
     end
 
     def workout_params
