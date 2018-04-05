@@ -1,4 +1,5 @@
 class Api::V1::WorkoutExercisesController < ApplicationController
+  before_action :authenticate_user
   before_action :find_workout
   before_action :find_exercise
 
@@ -12,16 +13,16 @@ class Api::V1::WorkoutExercisesController < ApplicationController
 
   def create
     if @workout
-      exercise = @workout.workout_exercises.new(workout_exercise_params)
-      save_workout_exercise(exercise)
+      workout_exercise = @workout.workout_exercises.new(workout_exercise_params)
+      save_workout_exercise(workout_exercise)
     else
       render json: {:error => error_messages(:create)}, status: 400
     end
   end
 
-  def save_workout_exercise(exercise)
-    if exercise.save
-      render json: exercise, status: 201
+  def save_workout_exercise(workout_exercise)
+    if workout_exercise.save
+      render json: workout_exercise, status: 201
     else
       render json: {:error => error_messages(:missing_params)}, status: 400
     end
@@ -53,7 +54,7 @@ class Api::V1::WorkoutExercisesController < ApplicationController
     end
 
     def find_workout
-      @workout ||= Workout.find_by(id: params[:workout_id])
+      @workout ||= current_user.workouts.find_by(id: params[:workout_id])
     end
 
     def find_exercise
