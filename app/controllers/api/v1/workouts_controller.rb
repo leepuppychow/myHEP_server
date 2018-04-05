@@ -1,9 +1,9 @@
 class Api::V1::WorkoutsController < ApplicationController
+  before_action :authenticate_user
   before_action :find_workout, except: [:index, :create]
 
   def index
-    render json: Workout.all, status: 200
-    # render json: current_user.workouts, status: 200
+    render json: current_user.workouts, status: 200
   end
 
   def show
