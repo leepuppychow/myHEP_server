@@ -2,11 +2,13 @@ require 'rails_helper'
 
 describe "Workouts" do
   it "can create new workout" do
+    # user = create(:user)
     params = {workout:
                 {
                   name: "Hard day",
                   status: "done",
-                  therapist: "Lee",
+                  therapist: "Lee"
+                  # user_id: user.id
                 }
               }
     post "/api/v1/workouts", params: params

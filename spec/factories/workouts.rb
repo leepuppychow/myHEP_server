@@ -3,5 +3,6 @@ FactoryBot.define do
     sequence(:name) {|n| "Workout#{n}"}
     sequence(:therapist) {|n| "Therapist#{n}"}
     status 0
+    user
   end
 end

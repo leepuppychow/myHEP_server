@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "Workouts" do
   it "Index endpoint will send an array of all workouts" do
-    create_list(:workout, 3)
+    workouts = create_list(:workout, 3)
 
     get '/api/v1/workouts'
 
