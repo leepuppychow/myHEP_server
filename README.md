@@ -72,3 +72,4 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 
 * How to run the test suite
   - rspec
+  - open coverage/index.html --> for SimpleCov test coverage information
