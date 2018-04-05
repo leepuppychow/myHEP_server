@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Workouts" do
-  it "can create new workout" do
+  xit "can create new workout" do
     # user = create(:user)
     params = {workout:
                 {
