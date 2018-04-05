@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe "Exercises API" do
   it "can create new exercise" do
+    current_user = create(:user)
+
     params = {exercise:
                 {
                   name: "squats",
@@ -9,7 +11,7 @@ describe "Exercises API" do
                   description: "sit in chair"
                 }
               }
-    post "/api/v1/exercises", params: params
+    post "/api/v1/exercises", params: params, headers: auth_headers(current_user)
 
     exercise = JSON.parse(response.body)
 
@@ -22,13 +24,14 @@ describe "Exercises API" do
   end
 
   it "Unable to create with missing attributes" do
+    current_user = create(:user)
     params = {exercise:
                 {
                   name: "squats",
                   description: "sit in chair"
                 }
               }
-    post "/api/v1/exercises", params: params
+    post "/api/v1/exercises", params: params, headers: auth_headers(current_user)
 
     error = JSON.parse(response.body)
 

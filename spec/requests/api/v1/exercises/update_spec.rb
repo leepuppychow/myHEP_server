@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe "Exercises API" do
   it "can update exercise" do
+    current_user = create(:user)
     create_list(:exercise, 2)
     params = {exercise:
                 {
@@ -10,7 +11,7 @@ describe "Exercises API" do
                   description: "sit in chair"
                 }
               }
-    put "/api/v1/exercises/1", params: params
+    put "/api/v1/exercises/1", params: params, headers: auth_headers(current_user)
 
     exercise = Exercise.find(1)
     expect(response.status).to eq 204
@@ -20,6 +21,7 @@ describe "Exercises API" do
   end
 
   it "Unable to update non-existing exercise" do
+    current_user = create(:user)
     create_list(:exercise, 2)
     params = {exercise:
                 {
@@ -27,7 +29,7 @@ describe "Exercises API" do
                   description: "sit in chair"
                 }
               }
-    patch "/api/v1/exercises/100", params: params
+    patch "/api/v1/exercises/100", params: params, headers: auth_headers(current_user)
     error = JSON.parse(response.body)
 
     expect(response.status).to eq 404
@@ -35,6 +37,7 @@ describe "Exercises API" do
   end
 
   it "Cannot update existing exercise with invalid params" do
+    current_user = create(:user)
     create_list(:exercise, 2)
     params = {exercise:
                 {
@@ -42,7 +45,7 @@ describe "Exercises API" do
                   blerg: "sit in chair"
                 }
               }
-    patch "/api/v1/exercises/1", params: params
+    patch "/api/v1/exercises/1", params: params, headers: auth_headers(current_user)
     error = JSON.parse(response.body)
 
     expect(response.status).to eq 404
