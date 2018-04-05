@@ -15,8 +15,9 @@ class Api::V1::WorkoutsController < ApplicationController
   end
 
   def create
-    workout = Workout.new(workout_params)
+    workout = current_user.workouts.new(workout_params)
     if workout.save
+      add_weekdays_to(workout)
       render json: workout, status: 201
     else
       render json: {:error => error_messages(:create)}, status: 400
@@ -43,12 +44,22 @@ class Api::V1::WorkoutsController < ApplicationController
 
   private
 
+    def workout_params
+      params.require(:workout).permit(:name, :status, :therapist)
+    end
+
+    def weekday_params
+      params.require(:workout).permit(:weekdays => [])[:weekdays]
+    end
+
     def find_workout
       @workout ||= current_user.workouts.find_by(id: params[:id])
     end
 
-    def workout_params
-      params.require(:workout).permit(:name, :weekday, :status, :therapist)
+    def add_weekdays_to(workout)
+      if weekday_params
+        weekday_params.each {|id| workout.weekdays << Weekday.find(id)}
+      end
     end
 
     def error_messages(action)
