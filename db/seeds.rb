@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Category.destroy_all
 Weekday.destroy_all
 WorkoutExercise.destroy_all
 Exercise.destroy_all
@@ -14,6 +15,14 @@ Workout.destroy_all
 ActiveRecord::Base.connection.tables.each do |table|
   ActiveRecord::Base.connection.reset_pk_sequence!(table)
 end
+
+strength = Category.create(name: "Strength")
+mobility = Category.create(name: "Mobility")
+aerobic = Category.create(name: "Aerobic Training")
+balance = Category.create(name: "Balance Training")
+neuro_re_ed = Category.create(name: "Neuromuscular Re-education")
+vestibular = Category.create(name: "Vestibular Training")
+other = Category.create(name: "Other")
 
 sunday = Weekday.create(name: "Sunday")
 monday = Weekday.create(name: "Monday")
@@ -27,6 +36,11 @@ ex1 = Exercise.create(name: "Squat", image: "test", description: "Pretend you ar
 ex2 = Exercise.create(name: "Lunge", image: "test", description: "Lunge forward")
 ex3 = Exercise.create(name: "Plank", image: "test", description: "Hold, keeping body inline")
 ex4 = Exercise.create(name: "Run", image: "test", description: "Level ground, 7:30 pace")
+
+ex1.categories << strength
+ex2.categories << strength
+ex3.categories << strength
+ex4.categories << aerobic
 
 workout1 = Workout.create(name: "Easy Day", status: 0, therapist: "Lee")
 workout1.weekdays << [monday, wednesday, friday]
