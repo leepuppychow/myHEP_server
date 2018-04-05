@@ -8,6 +8,8 @@ RSpec.describe User, type: :model do
     it {is_expected.to validate_presence_of(:username)}
     it {is_expected.to validate_presence_of(:api_token)}
     it {is_expected.to validate_presence_of(:admin)}
+    it {is_expected.to validate_uniqueness_of(:username)}
+    it {is_expected.to validate_uniqueness_of(:password_digest)}
   end
 
   describe "Relationships" do
