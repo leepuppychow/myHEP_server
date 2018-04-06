@@ -4,6 +4,22 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 
 ![alt text](myHEP_schema.png)
 
+## Setup
+
+* Ruby version
+  - Ruby: 2.5.0
+  - Rails: 5.1.6
+
+* Configuration and Database Creation
+  - git clone repository
+  - rake db:create
+  - rake db:migrate
+  - rake db:seed
+
+* How to run the test suite
+  - rspec
+  - open coverage/index.html --> for SimpleCov test coverage information
+
 ## Endpoints
 
 * Base URL: http://my-hep.herokuapp.com/api/v1
@@ -12,12 +28,24 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 
 ## Getting Authentication Token
 
-* This API uses the knock gem to generate JSON Web Tokens. In order to access endpoints, first get a token using the following user info:
+* This API uses the knock gem to generate JSON Web Tokens. In order to access endpoints, first get a token using the following user info (lee@gmail.com):
 
 ```
   POST '/user_token' with:
   headers: {"Content-Type": "application/json"}
   body: {"auth": {"email": "lee@gmail.com", "password": "password"}}
+```
+
+* This will return JWT token in this format:
+
+```
+  {"jwt": some_encrypted_token}
+```
+
+* For all future requests, pass this token in the request header (Authorization Type is Bearer Token):
+
+```
+  headers: {"Authorization": "Bearer some_encrypted_token"}
 ```
 
 ### Categories
@@ -29,6 +57,7 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 ```
 
 ### Exercises
+* NOTE: Only admin can delete exercises
 
 ```
   GET '/exercises' --> Index of all exercises
@@ -57,7 +86,7 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 ```
 
 ### Workout_exercises
-* (NOTE: there is no index route here, as the workout show endpoint will have all corresponding workout_exercises)
+* NOTE: there is no index route here, as the workout show endpoint will have all corresponding workout_exercises
 
 ```
   GET '/workouts/:workout_id/exercises/:exercise_id' --> Shows one workout_exercise
@@ -68,19 +97,3 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 
   DELETE '/workouts/:workout_id/exercises/:exercise_id' --> Delete workout_exercise
 ```
-
-## Setup
-
-* Ruby version
-  - Ruby: 2.5.0
-  - Rails: 5.1.6
-
-* Configuration and Database Creation
-  - git clone repository
-  - rake db:create
-  - rake db:migrate
-  - rake db:seed
-
-* How to run the test suite
-  - rspec
-  - open coverage/index.html --> for SimpleCov test coverage information

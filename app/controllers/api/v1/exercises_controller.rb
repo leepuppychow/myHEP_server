@@ -33,13 +33,11 @@ class Api::V1::ExercisesController < ApplicationController
   end
 
   def destroy
-    if current_user.admin?
-      if @exercise
-        @exercise.destroy
-        render json: {}, status: 204
-      else
-        render json: {:error => error_messages(:destroy)}, status: 404
-      end
+    if @exercise && current_user.admin?
+      @exercise.destroy
+      render json: {}, status: 204
+    else
+      render json: {:error => error_messages(:destroy)}, status: 404
     end
   end
 
