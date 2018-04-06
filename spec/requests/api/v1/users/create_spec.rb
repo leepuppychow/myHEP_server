@@ -8,13 +8,13 @@ describe "User endpoints" do
         last_name: "Chow",
         username: "leechow",
         password: "password",
-        email: "lee@gmail.com",
+        email: "lee@gmail.com"
       }
     }
     post "/api/v1/users", params: params
 
     user = JSON.parse(response.body)
-    
+
     expect(response.status).to eq 201
     expect(user["first_name"]).to eq "Lee"
     expect(user["last_name"]).to eq "Chow"

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'user_token', to: 'user_token#create'
 
-      resources :users, only: [:create]
+      resources :users, only: [:create, :update, :destroy]
       resources :categories, only: [:index, :show]
       resources :exercises, except: [:new, :edit]
       resources :workouts, except: [:new, :edit]
