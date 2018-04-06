@@ -25,6 +25,23 @@ describe "User endpoints" do
     expect(User.count).to eq 1
   end
 
+  it "Cannot update another user's info" do
+    current_user = create(:user)
+    another_user = create(:user)
+    params = {user:
+      {
+        first_name: "Lee",
+        last_name: "Chow",
+        username: "leechow",
+        email: "lee@gmail.com"
+      }
+    }
+    patch "/api/v1/users/#{another_user.id}", params: params,
+      headers: auth_headers(current_user)
+
+    expect(response.status).to eq 400
+  end
+
   it "cannot update user without auth token" do
     current_user = create(:user)
     params = {user:
