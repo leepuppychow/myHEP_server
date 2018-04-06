@@ -2,7 +2,7 @@ class Api::V1::UsersController < ApplicationController
   before_action :authenticate_user, except: :create
 
   def show
-    if current_user.id == params[:id].to_i
+    if same_user
       render json: current_user, status: 200
     else
       render json: {"error": "Unable to find user"}, status: 404
@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    if current_user.update(user_params)
+    if same_user && current_user.update(user_params)
       render json: current_user, status: 204
     else
       render json: {"error": "Unable to update user"}, status: 400
@@ -27,7 +27,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    if current_user.destroy
+    if same_user && current_user.destroy
       render json: {}, status: 204
     else
       render json: {"error": "Unable to delete user"}, status: 404
@@ -35,6 +35,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
+
+    def same_user
+      current_user.id == params[:id].to_i
+    end
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :username,

@@ -19,7 +19,6 @@ describe "User endpoints" do
     expect(user["first_name"]).to eq "Lee"
     expect(user["last_name"]).to eq "Chow"
     expect(user["username"]).to eq "leechow"
-    expect(user["password_digest"]).to be_a String
     expect(user["email"]).to eq "lee@gmail.com"
     expect(user["admin"]).to eq false
     expect(User.count).to eq 1
