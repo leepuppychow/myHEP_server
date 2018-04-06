@@ -18,16 +18,6 @@ ActiveRecord::Base.connection.tables.each do |table|
   ActiveRecord::Base.connection.reset_pk_sequence!(table)
 end
 
-admin = User.new(email: "admin@gmail.com",
-                password: "dopamine",
-                password_confirmation: "dopamine",
-                admin: true,
-                first_name: "admin",
-                last_name: "admin",
-                username: "admin"
-                )
-admin.save
-
 lee = User.new(email: "lee@gmail.com",
                 password: "password",
                 password_confirmation: "password",

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "Exercises API" do
   it "Delete exercise" do
-    current_user = create(:user)
+    current_user = create(:user, admin: true)
     create_list(:exercise, 2)
 
     delete '/api/v1/exercises/1', headers: auth_headers(current_user)
@@ -15,7 +15,7 @@ describe "Exercises API" do
   end
 
   it "Cannot delete non-existing exercise" do
-    current_user = create(:user)
+    current_user = create(:user, admin: true)
     create_list(:exercise, 2)
 
     delete '/api/v1/exercises/100', headers: auth_headers(current_user)
