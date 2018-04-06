@@ -8,9 +8,19 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 
 * Base URL: http://my-hep.herokuapp.com/api/v1
 
-* Data is passed in through parameters
+* Data for POST and PUT/PATCH requests are passed in through parameters
 
-* Categories
+## Getting Authentication Token
+
+* This API uses the knock gem to generate JSON Web Tokens. In order to access endpoints, first get a token using the following user info:
+
+```
+  POST '/user_token' with:
+  headers: {"Content-Type": "application/json"}
+  body: {"auth": {"email": "lee@gmail.com", "password": "password"}}
+```
+
+### Categories
 
 ```
   GET '/categories' --> Index of all categories
@@ -18,7 +28,7 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
   GET '/categories/:id' --> Shows one category
 ```
 
-* Exercises
+### Exercises
 
 ```
   GET '/exercises' --> Index of all exercises
@@ -32,7 +42,7 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
   DELETE '/exercises/:id' --> Delete exercise
 ```
 
-* Workouts
+### Workouts
 
 ```
   GET '/workouts' --> Index of all workouts
@@ -46,7 +56,8 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
   DELETE '/workouts/:id' --> Delete workout
 ```
 
-* Workout_exercises (NOTE: there is no index route here, as the workout show endpoint will have all corresponding workout_exercises)
+### Workout_exercises
+* (NOTE: there is no index route here, as the workout show endpoint will have all corresponding workout_exercises)
 
 ```
   GET '/workouts/:workout_id/exercises/:exercise_id' --> Shows one workout_exercise

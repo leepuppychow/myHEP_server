@@ -1,7 +1,7 @@
 class Api::V1::ExercisesController < ApplicationController
   before_action :authenticate_user
   before_action :find_exercise, except: [:index, :create]
-    
+
   def index
     render json: Exercise.all, status: 200
   end
@@ -33,11 +33,13 @@ class Api::V1::ExercisesController < ApplicationController
   end
 
   def destroy
-    if @exercise
-      @exercise.destroy
-      render json: {}, status: 204
-    else
-      render json: {:error => error_messages(:destroy)}, status: 404
+    if current_user.admin?
+      if @exercise
+        @exercise.destroy
+        render json: {}, status: 204
+      else
+        render json: {:error => error_messages(:destroy)}, status: 404
+      end
     end
   end
 
