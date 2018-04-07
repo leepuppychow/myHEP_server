@@ -7,8 +7,10 @@ describe "Workouts" do
     day2 = create(:weekday)
     not_this_users_workout = create(:workout)
     w = create(:workout, user: current_user)
+    category = create(:category)
     ex1 = create(:exercise)
     ex2 = create(:exercise)
+    category.exercises << [ex1,ex2]
     we1 = create(:workout_exercise, workout: w, exercise: ex1)
     we2 = create(:workout_exercise, workout: w, exercise: ex2)
     w.weekdays << [day1, day2]
@@ -37,6 +39,7 @@ describe "Workouts" do
     expect(workout["workout_exercises"].first["name"]).to be_a(String)
     expect(workout["workout_exercises"].first["image"]).to be_a(String)
     expect(workout["workout_exercises"].first["description"]).to be_a(String)
+    expect(workout["workout_exercises"].first["category"]).to be_a(String)
   end
 
   it "will return 404 for non-existing ID" do
