@@ -14,8 +14,8 @@ class WorkoutSerializer < ActiveModel::Serializer
 
   def workout_exercises
     object.workout_exercises
-      .select("workout_exercises.*, exercises.*")
-      .joins(:exercise)
+      .select("workout_exercises.*, exercises.*, categories.name AS category")
+      .joins(:exercise => :categories)
   end
 
 
