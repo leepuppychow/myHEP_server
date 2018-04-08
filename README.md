@@ -22,7 +22,7 @@ This RESTful API is a server for the MyHEP React Native application that I am bu
 
 ## Endpoints
 
-* Base URL: http://my-hep.herokuapp.com/api/v1
+* Base URL: https://my-hep.herokuapp.com/api/v1
 
 * Data for POST and PUT/PATCH requests are passed in through parameters
 
