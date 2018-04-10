@@ -6,4 +6,9 @@ class Workout < ApplicationRecord
   belongs_to :user
 
   enum status: [:done, :partial, :missed]
+
+  def self.today
+    today = Date.today.strftime('%u')
+    self.joins(:weekdays).where("weekdays.id = ?", today)
+  end
 end
