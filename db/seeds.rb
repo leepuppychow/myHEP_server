@@ -43,10 +43,18 @@ friday = Weekday.create(name: "Friday")
 saturday = Weekday.create(name: "Saturday")
 sunday = Weekday.create(name: "Sunday")
 
-ex1 = Exercise.create(name: "Squat", image: "test", description: "Pretend you are sitting in a chair")
-ex2 = Exercise.create(name: "Lunge", image: "test", description: "Lunge forward")
-ex3 = Exercise.create(name: "Plank", image: "test", description: "Hold, keeping body inline")
-ex4 = Exercise.create(name: "Run", image: "test", description: "Level ground, 7:30 pace")
+ex1 = Exercise.create(name: "Squat",
+  image: "https://s3.us-east-2.amazonaws.com/my-hep-images/photos/squat.jpg",
+  description: "Pretend you are sitting in a chair")
+ex2 = Exercise.create(name: "Lunge",
+  image: "https://s3.us-east-2.amazonaws.com/my-hep-images/photos/Lunge.png",
+  description: "Lunge forward")
+ex3 = Exercise.create(name: "Plank",
+  image: "https://s3.us-east-2.amazonaws.com/my-hep-images/photos/plank.jpg",
+  description: "Hold, keeping body inline")
+ex4 = Exercise.create(name: "Run",
+  image: "https://s3.us-east-2.amazonaws.com/my-hep-images/photos/run.jpg",
+  description: "Level ground, 7:30 pace")
 
 ex1.categories << strength
 ex2.categories << strength
